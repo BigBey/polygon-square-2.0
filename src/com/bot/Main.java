@@ -11,74 +11,48 @@ import java.util.Scanner;
 
 public class Main {
     private static ArrayList<Point> points = new ArrayList<Point>();
+    private static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static void createGUI() {
         final JFrame frame = new JFrame("Testframe");
-	    frame.setPreferredSize(new Dimension(700,700));
+	    frame.setPreferredSize(new Dimension(900,900));
 	    JPanel panel = new JPanel(new BorderLayout());
-        Panel butPanel = new Panel();
+        final Panel butPanel = new Panel();
         butPanel.setLayout(null);
-        butPanel.setPreferredSize(new Dimension(250,700));
+        butPanel.setPreferredSize(new Dimension(300,700));
         final Panel pointpane   = new Panel();
         pointpane.setLayout(null);
         //pointpane.setPreferredSize(new Dimension(350,700));
 
-	    JLabel addPointwithCoords = new JLabel("Добавить точку по координатам");
+	    JLabel addPointwithCoords = new JLabel("Добавить колличество вершин"+"\n"+" многоугольника");
 	    addPointwithCoords.setBounds(2,2,300,25);
 	    butPanel.add(addPointwithCoords);
-	    JLabel addRandomPoints = new JLabel("Добавить рандомное количество точек");
-	    addRandomPoints.setBounds(2,50,300,25);
-	    butPanel.add(addRandomPoints);
-        JLabel X = new JLabel("X:");
-        X.setBounds(2,25,15,25);
-        butPanel.add(X);
-        JLabel Y = new JLabel("Y:");
-        Y.setBounds(45,25,15,25);
-        butPanel.add(Y);
-        JLabel N = new JLabel("NUM:");
-        N.setBounds(2,70,30,25);
+	    JLabel X = new JLabel("X");
+        JLabel Y = new JLabel("Y");
+        JLabel N = new JLabel("N:");
+        N.setBounds(2,25,15,25);
         butPanel.add(N);
-        final JTextField x = new JTextField();
-        x.setBounds(17,25, 25,25);
-        butPanel.add(x);
-        final JTextField y = new JTextField();
-        y.setBounds(60,25, 25,25);
-        butPanel.add(y);
         final JTextField n = new JTextField();
-        n.setBounds(35,70,25,25);
+        n.setBounds(20,30, 25,25);
         butPanel.add(n);
 
-
-
-        JButton button1 = new JButton("Добавить точку");
-        button1.setBounds(2,100,160,40);
-        butPanel.add(button1);
-        button1.addActionListener(new ActionListener(){
+        JButton button3 = new JButton( "ОК");
+        butPanel.add(button3);
+        button3.setBounds(2,100,70,30);
+        button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int X = (!x.getText().equals("")?Integer.parseInt(x.getText()):0);
-                int Y= (!y.getText().equals("")?Integer.parseInt(y.getText()):0);
                 int N = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                if ((X>0)&&(Y>0)) {
-                    Point b = new Point(X, Y);
-                    points.add(b);
-                    b.setBounds(b.x,b.y,b.x+3,b.y+3);
-                    pointpane.add(b);
-                    pointpane.revalidate();
-                    pointpane.repaint();
+                int X = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                int Y = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                for (int i = 0;i<N;i++) {
+                    PanelPoint pp = new PanelPoint(i+1);
+                    pp.b=50+i*10;
+                    panelPoints.add(pp);
+                    butPanel.add(pp.X);
+                    butPanel.add(pp.Y);
+                    butPanel.add(pp.x);
+                    butPanel.add(pp.y);
                 }
-                else {
-                    if (N>0){
-                        for (int i=0;i<N;i++){
-                            Point b = new Point((int)(Math.random()*(frame.getWidth()-250)), (int)(Math.random()*frame.getHeight()));
-                            points.add(b);
-                            b.setBounds(b.x,b.y,b.x+3,b.y+3);
-                            pointpane.add(b);
-                            pointpane.revalidate();
-                            pointpane.repaint();
-                        }
-                    }
-                }
-
             }
         });
         JButton button2 = new JButton("очистить");
@@ -96,7 +70,7 @@ public class Main {
                 }
             }
         });
-        button2.setBounds(2,150,160,40);
+        button2.setBounds(2,150,160,30);
         butPanel.add(button2);
         panel.add(pointpane,BorderLayout.CENTER);
         panel.add(butPanel,BorderLayout.EAST);
@@ -104,6 +78,15 @@ public class Main {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        JButton button4 = new JButton("нарисовать многоугольник");
+        button4.setBounds(2,200,250,30);
+        butPanel.add(button4);
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
 
