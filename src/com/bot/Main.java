@@ -21,13 +21,13 @@ public class Main {
         butPanel.setPreferredSize(new Dimension(300,700));
         final Panel pointpane   = new Panel();
         pointpane.setLayout(null);
+        final Panel panelpointpane = new Panel();
+        panelpointpane.setLayout(null);
         //pointpane.setPreferredSize(new Dimension(350,700));
 
 	    JLabel addPointwithCoords = new JLabel("Добавить колличество вершин"+"\n"+" многоугольника");
 	    addPointwithCoords.setBounds(2,2,300,25);
 	    butPanel.add(addPointwithCoords);
-	    JLabel X = new JLabel("X");
-        JLabel Y = new JLabel("Y");
         JLabel N = new JLabel("N:");
         N.setBounds(2,25,15,25);
         butPanel.add(N);
@@ -42,16 +42,12 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int N = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                int X = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                int Y = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
                 for (int i = 0;i<N;i++) {
                     PanelPoint pp = new PanelPoint(i+1);
-                    pp.b=50+i*10;
+                    pp.setBounds(0,300+i*40,300,400);
                     panelPoints.add(pp);
-                    butPanel.add(pp.X);
-                    butPanel.add(pp.Y);
-                    butPanel.add(pp.x);
-                    butPanel.add(pp.y);
+                    butPanel.add(pp);
+                    butPanel.repaint();
                 }
             }
         });
@@ -68,6 +64,15 @@ public class Main {
                         pointpane.revalidate();
                     }
                 }
+                for (int i=0;i<panelPoints.size();i++){
+                    while(panelPoints.size() > 0) {
+                        int index = panelPoints.size() - 1;
+                        PanelPoint ppoint = panelPoints.remove(index);
+                        panelpointpane.remove(ppoint);
+                        panelpointpane.repaint();
+                        panelpointpane.revalidate();
+                    }
+                }
             }
         });
         button2.setBounds(2,150,160,30);
@@ -78,6 +83,7 @@ public class Main {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
         JButton button4 = new JButton("нарисовать многоугольник");
         button4.setBounds(2,200,250,30);
         butPanel.add(button4);
