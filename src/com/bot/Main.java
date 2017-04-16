@@ -19,8 +19,6 @@ public class Main {
         final Panel butPanel = new Panel();
         butPanel.setLayout(null);
         butPanel.setPreferredSize(new Dimension(300,700));
-        final Panel pointpane   = new Panel();
-        pointpane.setLayout(null);
         final Panel panelpointpane = new Panel();
         panelpointpane.setLayout(null);
         //pointpane.setPreferredSize(new Dimension(350,700));
@@ -55,15 +53,6 @@ public class Main {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i=0;i<points.size();i++){
-                    while(points.size() > 0) {
-                        int index = points.size() - 1;
-                        Point point = points.remove(index);
-                        pointpane.remove(point);
-                        pointpane.repaint();
-                        pointpane.revalidate();
-                    }
-                }
                 for (int i=0;i<panelPoints.size();i++){
                     while(panelPoints.size() > 0) {
                         int index = panelPoints.size() - 1;
@@ -77,7 +66,7 @@ public class Main {
         });
         button2.setBounds(2,150,160,30);
         butPanel.add(button2);
-        panel.add(pointpane,BorderLayout.CENTER);
+        panel.add(panelpointpane,BorderLayout.CENTER);
         panel.add(butPanel,BorderLayout.EAST);
         frame.getContentPane().add(panel);
         frame.pack();
@@ -103,5 +92,6 @@ public class Main {
                 createGUI();
             }
         });
+        PolygonD app = new PolygonD();
     }
 }
