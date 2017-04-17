@@ -91,6 +91,7 @@ public class Main {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+             PolygonD pol = new PolygonD(n.getText(),panelPoints);
 
             }
         });
