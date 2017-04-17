@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
     private static ArrayList<Point> points = new ArrayList<Point>();
-    private static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
+    public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static void createGUI() {
         final JFrame frame = new JFrame("Testframe");
 	    frame.setPreferredSize(new Dimension(900,900));
@@ -36,16 +36,28 @@ public class Main {
         JButton button3 = new JButton( "ОК");
         butPanel.add(button3);
         button3.setBounds(2,100,70,30);
+
+        final JPanel p = new JPanel();
+        p.setBounds(0,300,300,400);
+        butPanel.add(p);
+
+
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int N = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                if (N==0){
+                    p.removeAll();
+                    p.repaint();
+                    p.revalidate();
+                    return;
+                }
                 for (int i = 0;i<N;i++) {
                     PanelPoint pp = new PanelPoint(i+1);
-                    pp.setBounds(0,300+i*40,300,400);
+                    pp.setBounds(0,i*50,300,50);
                     panelPoints.add(pp);
-                    butPanel.add(pp);
-                    butPanel.repaint();
+                    p.add(pp);
+                    p.repaint();
                 }
             }
         });
@@ -92,6 +104,5 @@ public class Main {
                 createGUI();
             }
         });
-        PolygonD app = new PolygonD();
     }
 }

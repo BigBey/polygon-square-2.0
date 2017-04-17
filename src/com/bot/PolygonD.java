@@ -1,23 +1,33 @@
 package com.bot;
 
+import problem.First;
+
 import javax.swing.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+
+import static javax.swing.text.html.HTML.Attribute.N;
 
 
 /**
  * Created by Слава on 17.04.2017.
  */
-public class PolygonD extends JFrame {
-    public PolygonD() {
-        super("simpleApp");
-        setSize(700, 700);
-        setVisible(true);
+public class PolygonD extends JPanel {
+    private int n;
+    private ArrayList<Point> points = new ArrayList<>();
+
+    public PolygonD(int n, ArrayList<Point> points) {
+        this.n = n;
+        for (Point p: points){
+            this.points.add(p);
+        }
     }
+
     @Override
     public void paint(Graphics g) {
         Graphics2D gr2d = (Graphics2D) g;
@@ -27,17 +37,14 @@ public class PolygonD extends JFrame {
 
         gr2d.setPaint(Color.blue);
         Polygon j = new Polygon();
-        j.addPoint(270, 439);
-        j.addPoint(185, 400);
-        j.addPoint(100, 470);
-        j.addPoint(200, 550);
-        j.addPoint(240, 590);
-        j.addPoint(270, 539);
+        for(int i =0; i<n;i++){
+            j.addPoint(Main.panelPoints.get(i).getX(),Main.panelPoints.get(i).getY());
+        }
         g.drawPolygon(j);
 
     }
 
     public static void main(String args[]) {
-        PolygonD app = new PolygonD();
+        //PolygonD app = new PolygonD();
     }
 }
