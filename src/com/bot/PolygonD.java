@@ -19,23 +19,21 @@ import static javax.swing.text.html.HTML.Attribute.N;
  */
 public class PolygonD extends JPanel {
     private int n;
-    private ArrayList<Point> points = new ArrayList<>();
+    private ArrayList<PanelPoint> panelPoints = new ArrayList<>();
 
-    public PolygonD(int n, ArrayList<Point> points) {
+    public  PolygonD(int n, ArrayList<PanelPoint> panelPoints) {
         this.n = n;
-        for (Point p: points){
-            this.points.add(p);
+        for (PanelPoint p: panelPoints){
+            this.panelPoints.add(p);
         }
     }
 
     @Override
     public void paint(Graphics g) {
         Graphics2D gr2d = (Graphics2D) g;
-        gr2d.setBackground(Color.green);
         BasicStroke с = new BasicStroke(3);
         gr2d.setStroke(с);
-
-        gr2d.setPaint(Color.blue);
+        gr2d.setPaint(Color.MAGENTA);
         Polygon j = new Polygon();
         for(int i =0; i<n;i++){
             j.addPoint(Main.panelPoints.get(i).getX(),Main.panelPoints.get(i).getY());
@@ -44,7 +42,4 @@ public class PolygonD extends JPanel {
 
     }
 
-    public static void main(String args[]) {
-        //PolygonD app = new PolygonD();
-    }
 }

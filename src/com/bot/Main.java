@@ -14,26 +14,26 @@ public class Main {
     public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static void createGUI() {
         final JFrame frame = new JFrame("Testframe");
-	    frame.setPreferredSize(new Dimension(900,900));
+	    frame.setPreferredSize(new Dimension(700,700));
 	    JPanel panel = new JPanel(new BorderLayout());
         final Panel butPanel = new Panel();
         butPanel.setLayout(null);
         butPanel.setPreferredSize(new Dimension(300,700));
         final Panel panelpointpane = new Panel();
         panelpointpane.setLayout(null);
-        //pointpane.setPreferredSize(new Dimension(350,700));
+        panelpointpane.setPreferredSize(new Dimension(350,700));
 
 	    JLabel addPointwithCoords = new JLabel("Добавить колличество вершин"+"\n"+" многоугольника");
 	    addPointwithCoords.setBounds(2,2,300,25);
 	    butPanel.add(addPointwithCoords);
-        JLabel N = new JLabel("N:");
+        final JLabel N = new JLabel("N:");
         N.setBounds(2,25,15,25);
         butPanel.add(N);
         final JTextField n = new JTextField();
         n.setBounds(20,30, 25,25);
         butPanel.add(n);
 
-        JButton button3 = new JButton( "ОК");
+        final JButton button3 = new JButton( "ОК");
         butPanel.add(button3);
         button3.setBounds(2,100,70,30);
 
@@ -44,15 +44,15 @@ public class Main {
 
         button3.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                int N = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                if (N==0){
+            public  void actionPerformed(ActionEvent e) {
+                int K = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                if (K==0){
                     p.removeAll();
                     p.repaint();
                     p.revalidate();
                     return;
                 }
-                for (int i = 0;i<N;i++) {
+                for (int i = 0;i<K;i++) {
                     PanelPoint pp = new PanelPoint(i+1);
                     pp.setBounds(0,i*50,300,50);
                     panelPoints.add(pp);
@@ -91,8 +91,10 @@ public class Main {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-             PolygonD pol = new PolygonD(n.getText(),panelPoints);
-
+                int s = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+             PolygonD pol = new PolygonD(s,Main.panelPoints);
+             panelpointpane.add(pol);
+             pol.repaint();
             }
         });
     }
