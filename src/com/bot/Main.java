@@ -94,7 +94,8 @@ public class Main {
                 int s = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
              PolygonD pol = new PolygonD(s,Main.panelPoints);
              panelpointpane.add(pol);
-             pol.repaint();
+             panelpointpane.repaint();
+             pol.setBounds(0,0,350,700);
             }
         });
     }
