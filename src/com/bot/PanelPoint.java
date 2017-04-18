@@ -8,6 +8,10 @@ import javax.swing.*;
  */
 public class PanelPoint extends JPanel{
     int n;
+    JLabel X;
+    JLabel Y;
+    JTextField x;
+    JTextField y;
     PanelPoint(int n){
         this.n =n;
         X = new JLabel("X"+n+":");
@@ -28,11 +32,11 @@ public class PanelPoint extends JPanel{
         revalidate();
     }
 
-    public int getX(JTextField x){
+    public int Xget(){
         int x1=(!x.getText().equals("")?Integer.parseInt(x.getText()):0);
         return x1;
     }
-    public int getY(JTextField y){
+    public int Yget(){
         int y1=(!y.getText().equals("")?Integer.parseInt(y.getText()):0);
         return y1;
     }

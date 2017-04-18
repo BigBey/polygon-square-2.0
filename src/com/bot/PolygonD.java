@@ -36,7 +36,7 @@ public class PolygonD extends JPanel {
         gr2d.setPaint(Color.MAGENTA);
         Polygon j = new Polygon();
         for(int i =0; i<n;i++){
-            j.addPoint(Main.panelPoints.get(i).getX(),Main.panelPoints.get(i).getY());
+            j.addPoint(Main.panelPoints.get(i).Xget(),Main.panelPoints.get(i).Yget());
         }
         g.drawPolygon(j);
 
