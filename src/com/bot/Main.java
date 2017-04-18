@@ -1,5 +1,8 @@
 package com.bot;
 
+import problem.*;
+import problem.Polygon;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,13 +36,20 @@ public class Main {
         final JTextField n = new JTextField();
         n.setBounds(20,30, 25,25);
         butPanel.add(n);
+        final JLabel A = new JLabel("Ответ:");
+        A.setBounds(20, 300, 15, 25);
+        butPanel.add(A);
+        final JTextField a = new JTextField();
+        a.setBounds(40,300, 25,25);
+        butPanel.add(a);
+
 
         final JButton button3 = new JButton( "ОК");
         butPanel.add(button3);
         button3.setBounds(2,100,70,30);
 
         final JPanel p = new JPanel();
-        p.setBounds(0,300,300,400);
+        p.setBounds(0,350,300,400);
         butPanel.add(p);
 
 
@@ -99,6 +109,20 @@ public class Main {
              panelpointpane.add(pol);
              panelpointpane.repaint();
              panelpointpane.revalidate();
+            }
+        });
+        JButton button5 = new JButton("посчитать площадь");
+        button5.setBounds(2,250,250,30);
+        butPanel.add(button5);
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int l = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                problem.Polygon polygon = new Polygon(l,Main.panelPoints);
+                double s = polygon.getArea(polygon);
+                JTextField a = new JTextField("s="+s);
+                a.setBounds(40,300, 25,25);
+                butPanel.add(a);
             }
         });
     }
