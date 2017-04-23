@@ -108,7 +108,7 @@ public class Main {
              pol.setBounds(0,0,350,700);
              panelpointpane.add(pol);
              panelpointpane.repaint();
-             panelpointpane.revalidate();
+
             }
         });
         JButton button5 = new JButton("посчитать площадь");
@@ -118,10 +118,10 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int l = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                problem.Polygon polygon = new Polygon(l,Main.panelPoints);
+                problem.Polygon polygon = new problem.Polygon(l,Main.panelPoints);
                 double s = polygon.getArea(polygon);
                 JTextField a = new JTextField("s="+s);
-                a.setBounds(40,300, 25,25);
+                a.setBounds(40,300, 100,30);
                 butPanel.add(a);
             }
         });

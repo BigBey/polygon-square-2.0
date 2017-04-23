@@ -1,6 +1,5 @@
 package com.bot;
 
-import problem.First;
 
 import javax.swing.*;
 import java.awt.BasicStroke;

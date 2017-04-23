@@ -14,7 +14,7 @@ public class Polygon {
 
     public Polygon(int n,ArrayList<PanelPoint> panelPoints){
         tArr = new Triangle[n];
-        for(int i =0;i<n;i++){
+        for(int i =0;i<n-1;i++){
             int x =panelPoints.get(i).Xget();
             int y =panelPoints.get(i).Yget();
             int x1 =panelPoints.get(i+1).Xget();
