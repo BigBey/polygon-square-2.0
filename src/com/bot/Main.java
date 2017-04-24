@@ -38,7 +38,10 @@ public class Main {
         final JLabel A = new JLabel("Ответ:");
         A.setBounds(2, 270, 50, 25);
         butPanel.add(A);
-        
+        final JTextField a = new JTextField("");
+        a.setBounds(40,270, 100,30);
+        butPanel.add(a);
+
 
 
         final JButton button3 = new JButton( "Добавить колличество вершин");
@@ -83,9 +86,8 @@ public class Main {
                     }
                 }
                 panelpointpane.remove(pol);
-                JTextField a = new JTextField("");
-                a.setBounds(40,270, 100,30);
-                butPanel.add(a);
+                a.setText("");
+                n.setText("");
 
             }
         });
@@ -121,9 +123,10 @@ public class Main {
                 int l = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
                 problem.Polygon polygon = new problem.Polygon(l,Main.panelPoints);
                 double s = polygon.getArea(polygon);
-                JTextField a = new JTextField("s="+s);
-                a.setBounds(40,270, 100,30);
-                butPanel.add(a);
+                a.setText("s="+s);
+                //JTextField a = new JTextField("s="+s);
+                //a.setBounds(40,270, 100,30);
+                //butPanel.add(a);
             }
         });
         JButton button6 = new JButton("задать случайные вершины");
