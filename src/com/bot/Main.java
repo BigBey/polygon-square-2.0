@@ -29,26 +29,23 @@ public class Main {
         panelpointpane.setLayout(null);
         panelpointpane.setPreferredSize(new Dimension(350,700));
 
-	    JLabel addPointwithCoords = new JLabel("Добавить колличество вершин"+"\n"+" многоугольника");
-	    addPointwithCoords.setBounds(2,2,300,25);
-	    butPanel.add(addPointwithCoords);
         final JLabel N = new JLabel("N:");
-        N.setBounds(2,25,15,25);
+        N.setBounds(2,90,15,25);
         butPanel.add(N);
         final JTextField n = new JTextField();
-        n.setBounds(20,30, 25,25);
+        n.setBounds(20,90, 25,25);
         butPanel.add(n);
         final JLabel A = new JLabel("Ответ:");
-        A.setBounds(20, 300, 15, 25);
+        A.setBounds(2, 270, 50, 25);
         butPanel.add(A);
         final JTextField a = new JTextField();
-        a.setBounds(40,300, 100,30);
+        a.setBounds(40,270, 100,30);
         butPanel.add(a);
 
 
-        final JButton button3 = new JButton( "ОК");
+        final JButton button3 = new JButton( "Добавить колличество вершин");
         butPanel.add(button3);
-        button3.setBounds(2,100,70,30);
+        button3.setBounds(2,2,250,30);
 
         final JPanel p = new JPanel();
         p.setBounds(0,400,300,400);
@@ -91,7 +88,7 @@ public class Main {
 
             }
         });
-        button2.setBounds(2,150,160,30);
+        button2.setBounds(2,220,160,30);
         butPanel.add(button2);
         panel.add(panelpointpane,BorderLayout.CENTER);
         panel.add(butPanel,BorderLayout.EAST);
@@ -101,7 +98,7 @@ public class Main {
         frame.setVisible(true);
 
         JButton button4 = new JButton("нарисовать многоугольник");
-        button4.setBounds(2,200,250,30);
+        button4.setBounds(2,130,250,30);
         butPanel.add(button4);
         button4.addActionListener(new ActionListener() {
             @Override
@@ -115,7 +112,7 @@ public class Main {
             }
         });
         JButton button5 = new JButton("посчитать площадь");
-        button5.setBounds(2,250,250,30);
+        button5.setBounds(2,180,250,30);
         butPanel.add(button5);
         button5.addActionListener(new ActionListener() {
             @Override
@@ -124,12 +121,12 @@ public class Main {
                 problem.Polygon polygon = new problem.Polygon(l,Main.panelPoints);
                 double s = polygon.getArea(polygon);
                 JTextField a = new JTextField("s="+s);
-                a.setBounds(40,300, 100,30);
+                a.setBounds(60,300, 100,30);
                 butPanel.add(a);
             }
         });
         JButton button6 = new JButton("задать случайные вершины");
-        button6.setBounds(2,340,250,30);
+        button6.setBounds(2,50,250,30);
         butPanel.add(button6);
         button6.addActionListener(new ActionListener() {
             @Override
@@ -139,7 +136,6 @@ public class Main {
                 int y0 = random.nextInt(250);
                 double cor = 0.0;
                 double dcor = 360/k;
-
                 for(int i =0;i<k;i++) {
                     System.out.println(cor);
                         int r = random.nextInt(100);
@@ -154,6 +150,12 @@ public class Main {
                 }
             }
         });
+        JButton button7 = new JButton("чтение из файла");
+        button7.setBounds(2,320,160,30);
+        butPanel.add(button7);
+        JButton button8 = new JButton("вывод в файл");
+        button8.setBounds(2,360,160,30);
+        butPanel.add(button8);
     }
 
 
