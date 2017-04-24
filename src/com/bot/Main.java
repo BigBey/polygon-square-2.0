@@ -10,12 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     private static ArrayList<Point> points = new ArrayList<Point>();
     public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static PolygonD pol;
+    public static Random random = new Random();
     public static void createGUI() {
         final JFrame frame = new JFrame("Testframe");
 	    frame.setPreferredSize(new Dimension(700,700));
@@ -40,7 +42,7 @@ public class Main {
         A.setBounds(20, 300, 15, 25);
         butPanel.add(A);
         final JTextField a = new JTextField();
-        a.setBounds(40,300, 25,25);
+        a.setBounds(40,300, 100,30);
         butPanel.add(a);
 
 
@@ -49,7 +51,7 @@ public class Main {
         button3.setBounds(2,100,70,30);
 
         final JPanel p = new JPanel();
-        p.setBounds(0,350,300,400);
+        p.setBounds(0,400,300,400);
         butPanel.add(p);
 
 
@@ -86,6 +88,7 @@ public class Main {
                     }
                 }
                 panelpointpane.remove(pol);
+
             }
         });
         button2.setBounds(2,150,160,30);
@@ -123,6 +126,32 @@ public class Main {
                 JTextField a = new JTextField("s="+s);
                 a.setBounds(40,300, 100,30);
                 butPanel.add(a);
+            }
+        });
+        JButton button6 = new JButton("задать случайные вершины");
+        button6.setBounds(2,340,250,30);
+        butPanel.add(button6);
+        button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int k = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                int x0 = random.nextInt(250);
+                int y0 = random.nextInt(250);
+                double cor = 0.0;
+                double dcor = 360/k;
+
+                for(int i =0;i<k;i++) {
+                    System.out.println(cor);
+                        int r = random.nextInt(100);
+                    int x = x0 + (int)(r * Math.cos(cor/180*Math.PI));
+                    int y =y0+(int)(r*Math.sin(cor/180*Math.PI));
+                    PanelPoint pp = new PanelPoint(i+1,x,y);
+                    pp.setBounds(0,i*50,300,50);
+                    panelPoints.add(pp);
+                    p.add(pp);
+                    p.repaint();
+                    cor+=dcor;
+                }
             }
         });
     }
