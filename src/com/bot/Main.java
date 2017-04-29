@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -18,6 +21,9 @@ public class Main {
     public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static PolygonD pol;
     public static Random random = new Random();
+    Scanner fin = null;
+    PrintStream fout = null;
+
     public static void createGUI() {
         final JFrame frame = new JFrame("Testframe");
 	    frame.setPreferredSize(new Dimension(700,700));
@@ -35,22 +41,50 @@ public class Main {
         final JTextField n = new JTextField();
         n.setBounds(20,90, 25,25);
         butPanel.add(n);
-        final JLabel A = new JLabel("Ответ:");
-        A.setBounds(2, 270, 50, 25);
+        final JLabel A = new JLabel("Ответ(площадь многоугольника):");
+        A.setBounds(2, 320, 50, 25);
         butPanel.add(A);
         final JTextField a = new JTextField("");
-        a.setBounds(40,270, 100,30);
+        a.setBounds(40,320, 100,30);
         butPanel.add(a);
+        final JPanel p = new JPanel();
+        p.setBounds(0,400,300,400);
+        butPanel.add(p);
 
-
+        JButton button2 = new JButton("очистить");
+        button2.setBounds(2,360,160,30);
+        butPanel.add(button2);
 
         final JButton button3 = new JButton( "Добавить колличество вершин");
         butPanel.add(button3);
         button3.setBounds(2,2,250,30);
 
-        final JPanel p = new JPanel();
-        p.setBounds(0,400,300,400);
-        butPanel.add(p);
+
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i=0;i<panelPoints.size();i++){
+                    while(panelPoints.size() > 0) {
+                        int index = panelPoints.size() - 1;
+                        PanelPoint ppoint = panelPoints.remove(index);
+                        panelpointpane.remove(ppoint);
+                        panelpointpane.repaint();
+                        panelpointpane.revalidate();
+                    }
+                }
+                panelpointpane.remove(pol);
+                a.setText("");
+                n.setText("");
+
+            }
+        });
+
+        panel.add(panelpointpane,BorderLayout.CENTER);
+        panel.add(butPanel,BorderLayout.EAST);
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
 
         button3.addActionListener(new ActionListener() {
@@ -72,36 +106,9 @@ public class Main {
                 }
             }
         });
-        JButton button2 = new JButton("очистить");
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (int i=0;i<panelPoints.size();i++){
-                    while(panelPoints.size() > 0) {
-                        int index = panelPoints.size() - 1;
-                        PanelPoint ppoint = panelPoints.remove(index);
-                        panelpointpane.remove(ppoint);
-                        panelpointpane.repaint();
-                        panelpointpane.revalidate();
-                    }
-                }
-                panelpointpane.remove(pol);
-                a.setText("");
-                n.setText("");
-
-            }
-        });
-        button2.setBounds(2,220,160,30);
-        butPanel.add(button2);
-        panel.add(panelpointpane,BorderLayout.CENTER);
-        panel.add(butPanel,BorderLayout.EAST);
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
 
         JButton button4 = new JButton("нарисовать многоугольник");
-        button4.setBounds(2,130,250,30);
+        button4.setBounds(2,220,250,30);
         butPanel.add(button4);
         button4.addActionListener(new ActionListener() {
             @Override
@@ -115,7 +122,7 @@ public class Main {
             }
         });
         JButton button5 = new JButton("посчитать площадь");
-        button5.setBounds(2,180,250,30);
+        button5.setBounds(2,270,250,30);
         butPanel.add(button5);
         button5.addActionListener(new ActionListener() {
             @Override
@@ -123,10 +130,7 @@ public class Main {
                 int l = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
                 problem.Polygon polygon = new problem.Polygon(l,Main.panelPoints);
                 double s = polygon.getArea(polygon);
-                a.setText("s="+s);
-                //JTextField a = new JTextField("s="+s);
-                //a.setBounds(40,270, 100,30);
-                //butPanel.add(a);
+                a.setText(""+s);
             }
         });
         JButton button6 = new JButton("задать случайные вершины");
@@ -136,13 +140,13 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int k = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                int x0 = random.nextInt(250);
-                int y0 = random.nextInt(250);
+                int x0 = random.nextInt(300);
+                int y0 = random.nextInt(300);
                 double cor = 0.0;
                 double dcor = 360/k;
                 for(int i =0;i<k;i++) {
                     System.out.println(cor);
-                        int r = random.nextInt(100);
+                    int r = random.nextInt(100);
                     int x = x0 + (int)(r * Math.cos(cor/180*Math.PI));
                     int y =y0+(int)(r*Math.sin(cor/180*Math.PI));
                     PanelPoint pp = new PanelPoint(i+1,x,y);
@@ -155,12 +159,71 @@ public class Main {
             }
         });
         JButton button7 = new JButton("чтение из файла");
-        button7.setBounds(2,320,160,30);
+        button7.setBounds(2,130,160,30);
         butPanel.add(button7);
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Scanner fin = null;
+                PrintStream fout = null;
+                try {
+                    fin = new Scanner(new File("in.txt"));
+                    fout = new PrintStream(new File("out.txt"));
+                    int k = fin.nextInt();
+                    n.setText(""+k);
+                    panelPoints.clear();
+                    for(int i = 0;i<k;i++){
+                        PanelPoint pp = new PanelPoint(i+1, fin.nextInt(), fin.nextInt());
+                        pp.setBounds(0,i*50,300,50);
+                        panelPoints.add(pp);
+                        p.add(pp);
+                        p.repaint();
+                    }
+                }catch(FileNotFoundException e1){
+                    System.out.println("не найден файл " + e);
+                }finally {
+                    if (fin != null) {
+                        fin.close(); //!
+                    }
+                    if (fout != null) {
+                        fout.close(); //!
+                    }
+                }
+            }
+        });
         JButton button8 = new JButton("вывод в файл");
-        button8.setBounds(2,360,160,30);
+        button8.setBounds(2,180,160,30);
         butPanel.add(button8);
-    }
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Scanner fin = null;
+                PrintStream fout = null;
+                try {
+                    fin = new Scanner(new File("in.txt"));
+                    fout = new PrintStream(new File("out.txt"));
+                    System.out.println(panelPoints.size());
+                    fout.println(panelPoints.size());
+                    for (PanelPoint p : panelPoints) {
+                        System.out.println(p.Xget() + " " + p.Yget());
+                        fout.println(p.Xget() + " " + p.Yget());
+                    }
+                    double s = (!a.getText().equals("")?Double.parseDouble(a.getText()):0);
+                    fout.println(""+s);
+                } catch (FileNotFoundException e1) {
+                    System.out.println("не найден файл " + e);
+                }finally {
+                    if (fin != null) {
+                        fin.close(); //!
+                    }
+                    if (fout != null) {
+                        fout.close(); //!
+                    }
+                }
+            }
+        });
+        }
+
 
 
     public static void main(String[] args) {
