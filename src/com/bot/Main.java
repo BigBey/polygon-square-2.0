@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Main {
     private static ArrayList<Point> points = new ArrayList<Point>();
     public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
+    public static ArrayList<Vector> vectors = new ArrayList<>();
     public static PolygonD pol;
     public static Random random = new Random();
     Scanner fin = null;
@@ -128,6 +129,13 @@ public class Main {
                         panelpointpane.repaint();
                         panelpointpane.revalidate();
                     }
+                    while(vectors.size() > 0) {
+                        int index = vectors.size() - 1;
+                        Vector vector = vectors.remove(index);
+                        panelpointpane.remove(vector);
+                        panelpointpane.repaint();
+                        panelpointpane.revalidate();
+                    }
                 }
                 panelpointpane.remove(pol);
                 a.setText("");
@@ -167,6 +175,13 @@ public class Main {
              pol.setBounds(0,0,350,700);
              panelpointpane.add(pol);
              panelpointpane.repaint();
+             for(int i = 0;i<s; i++){
+                 Vector v = new Vector(Main.panelPoints.get(i).Xget(), Main.panelPoints.get(i).Yget());
+                 v.setBounds(0,0,350,700);
+                 vectors.add(v);
+                 panelpointpane.add(v);
+                 panelpointpane.repaint();
+             }
 
             }
         });
