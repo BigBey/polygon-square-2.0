@@ -17,7 +17,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<Point> points = new ArrayList<Point>();
     public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static ArrayList<Vector> vectors = new ArrayList<>();
     public static PolygonD pol;
@@ -106,7 +105,7 @@ public class Main {
         butPanel.add(A);
 
         final JTextField a = new JTextField("");
-        a.setBounds(130,320, 100,30);
+        a.setBounds(140,320, 100,30);
         butPanel.add(a);
 
         final JPanel p = new JPanel();
@@ -163,29 +162,6 @@ public class Main {
             }
         });
 
-        JButton button4 = new JButton("нарисовать многоугольник");
-        button4.setBounds(2,220,250,30);
-        butPanel.add(button4);
-
-        button4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int s = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-             pol = new PolygonD(s,Main.panelPoints);
-             pol.setBounds(0,0,350,700);
-             panelpointpane.add(pol);
-             panelpointpane.repaint();
-             for(int i = 0;i<s; i++){
-                 Vector v = new Vector(Main.panelPoints.get(i).Xget(), Main.panelPoints.get(i).Yget());
-                 v.setBounds(0,0,350,700);
-                 vectors.add(v);
-                 panelpointpane.add(v);
-                 panelpointpane.repaint();
-             }
-
-            }
-        });
-
         JButton button5 = new JButton("посчитать площадь");
         button5.setBounds(2,270,250,30);
         butPanel.add(button5);
@@ -197,6 +173,15 @@ public class Main {
                 problem.Polygon polygon = new problem.Polygon(l,Main.panelPoints);
                 double s = polygon.getArea(polygon);
                 a.setText(""+s);
+                for(int i = 0;i<l; i++) {
+                    int x = Main.panelPoints.get(i).Xget();
+                    int y = Main.panelPoints.get(i).Yget();
+                    Vector v = new Vector(0,0, x, y);
+                    v.setBounds(0, 0, 350, 700);
+                    vectors.add(v);
+                    panelpointpane.add(v);
+                    panelpointpane.repaint();
+                }
             }
         });
 
@@ -211,11 +196,15 @@ public class Main {
                 int x0 = random.nextInt(300);
                 int y0 = random.nextInt(300);
                 addPanelPoints(k, p ,x0,y0);
+                pol = new PolygonD(k,Main.panelPoints);
+                pol.setBounds(0,0,350,700);
+                panelpointpane.add(pol);
+                panelpointpane.repaint();
             }
         });
 
         JButton button7 = new JButton("чтение из файла");
-        button7.setBounds(2,130,160,30);
+        button7.setBounds(2,160,160,30);
         butPanel.add(button7);
 
         button7.addActionListener(new ActionListener() {
@@ -244,7 +233,7 @@ public class Main {
         });
 
         JButton button8 = new JButton("вывод в файл");
-        button8.setBounds(2,180,160,30);
+        button8.setBounds(2,200,160,30);
         butPanel.add(button8);
 
         button8.addActionListener(new ActionListener() {
@@ -261,8 +250,6 @@ public class Main {
                         System.out.println(p.Xget() + " " + p.Yget());
                         fout.println(p.Xget() + " " + p.Yget());
                     }
-                    double s = (!a.getText().equals("")?Double.parseDouble(a.getText()):0);
-                    fout.println(""+s);
                 } catch (FileNotFoundException e1) {
                     System.out.println("не найден файл " + e);
                 }finally {
@@ -275,7 +262,22 @@ public class Main {
                 }
             }
         });
-        }
+        JButton button9 = new JButton("задать мн-к");
+        button9.setBounds(150, 10,100,30);
+        p.add(button9);
+
+        button9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int k = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
+                pol = new PolygonD(k,Main.panelPoints);
+                pol.setBounds(0,0,350,700);
+                panelpointpane.add(pol);
+                panelpointpane.repaint();
+            }
+        });
+
+    }
 
 
 
