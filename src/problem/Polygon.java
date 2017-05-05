@@ -1,6 +1,6 @@
 package problem;
 
-import com.bot.PanelPoint;
+import com.visual.PanelPoint;
 
 import java.util.ArrayList;
 
