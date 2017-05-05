@@ -184,7 +184,8 @@ public class Main {
                     vectors.add(v);
                     panelpointpane.add(v);
                     panelpointpane.repaint();
-                    JTextArea j = new JTextArea("("+x+","+y+")");
+                    int b =i+1;
+                    JTextArea j = new JTextArea("A"+b+"("+x+","+y+")");
                     j.setBounds(x,y,80,20);
                     jTextAreas.add(j);
                     panelpointpane.add(j);
