@@ -12,6 +12,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    public static final int clientWidth = 300;
+    public static final int clientHeight = 700;
+
     public static ArrayList<PanelPoint> panelPoints = new ArrayList<PanelPoint>();
     public static ArrayList<Vector> vectors = new ArrayList<>();
     public static ArrayList<JTextArea> jTextAreas = new ArrayList<>();
@@ -62,9 +65,9 @@ public class Main {
         }
         for(int i =0;i<k;i++) {
             System.out.println(cor);
-            int r = random.nextInt(100);
+            int r = random.nextInt(Math.min(x0,y0));
             int x = x0 + (int)(r * Math.cos(cor/180*Math.PI));
-            int y =y0+(int)(r*Math.sin(cor/180*Math.PI));
+            int y = y0+(int)(r*Math.sin(cor/180*Math.PI));
             PanelPoint pp = new PanelPoint(i+1,x,y);
             pp.setBounds(0,i*50,300,50);
             panelPoints.add(pp);
@@ -82,7 +85,7 @@ public class Main {
 
         final Panel butPanel = new Panel();
         butPanel.setLayout(null);
-        butPanel.setPreferredSize(new Dimension(300,700));
+        butPanel.setPreferredSize(new Dimension(clientWidth,clientHeight));
 
         final Panel panelpointpane = new Panel();
         panelpointpane.setLayout(null);
@@ -202,8 +205,8 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int k = (!n.getText().equals("")?Integer.parseInt(n.getText()):0);
-                int x0 = random.nextInt(300);
-                int y0 = random.nextInt(300);
+                int x0 = random.nextInt(clientWidth/2);
+                int y0 = random.nextInt(clientHeight/2);
                 addPanelPoints(k, p ,x0,y0);
                 pol = new PolygonD(k,Main.panelPoints);
                 pol.setBounds(0,0,350,700);
